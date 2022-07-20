@@ -13,9 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from library import views as library_views
+import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", library_views.BookListView.as_view(), name="homepage"),
+    # path("books", library_views.book_list, name="book_list"),
+    # path("books/<int:pk>", library_views.book_detail, name="book_detail"),
+    # path("books/new", library_views.add_book, name="add_book"),
+    path("accounts/", include("registration.backends.simple.urls")),
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/books", library_views.BookListCreateView.as_view(), name="book_list"),
+    path("api/recipes/<int:pk>", library_views.BookDetailView.as_view(), name="book_detail"),
 ]
+
+if settings.DEBUG:
+    urlpatterns.append(path(r'__debug__/', include(debug_toolbar.urls)))

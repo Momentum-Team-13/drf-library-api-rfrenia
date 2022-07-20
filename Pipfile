@@ -11,6 +11,8 @@ psycopg2-binary = "*"
 django-on-heroku = "*"
 gunicorn = "*"
 django-environ = "*"
+django-registration-redux = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 flake8 = "*"
