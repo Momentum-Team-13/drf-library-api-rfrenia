@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView
-from .models import Book
-from .serializers import BookSerializer
+from .models import Book, Tracker
+from .serializers import BookSerializer,  TrackerSerializer
 
 
 class BookListView(ListAPIView):
@@ -20,3 +20,8 @@ class BookListCreateView(ListCreateAPIView):
 class BookDetailView(RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
+
+class BookTrackerView(RetrieveAPIView):
+    queryset = Tracker.objects.all()
+    serializer_class = TrackerSerializer

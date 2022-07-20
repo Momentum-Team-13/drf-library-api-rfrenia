@@ -27,8 +27,9 @@ urlpatterns = [
     # path("books/new", library_views.add_book, name="add_book"),
     path("accounts/", include("registration.backends.simple.urls")),
     path("api-auth/", include("rest_framework.urls")),
-    path("api/books", library_views.BookListCreateView.as_view(), name="book_list"),
-    path("api/recipes/<int:pk>", library_views.BookDetailView.as_view(), name="book_detail"),
+    path("books", library_views.BookListCreateView.as_view(), name="book_list"),
+    path("books/<int:pk>", library_views.BookDetailView.as_view(), name="book_detail"),
+    path("books/<int:pk>/tracker", library_views.BookTrackerView.as_view(), name="add_tracker"),
 ]
 
 if settings.DEBUG:
