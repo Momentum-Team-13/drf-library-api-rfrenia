@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    #is staff boolean
     def __str__(self):
         return self.username
 
@@ -19,6 +20,7 @@ class Book(models.Model):
     featured_N = "No"
     featured_choices = [(featured_Y, "Yes"), (featured_N, "No")]
     featured_book = models.CharField(max_length=3, choices=featured_choices, default=featured_N,)
+    owner = models.ForeignKey('User', related_name='books', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.title}'
@@ -32,12 +34,10 @@ class Book(models.Model):
 class Tracker(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name='trackers', null=True, blank=True)
     book = models.ForeignKey("Book", on_delete=models.CASCADE, related_name='trackers', null=True, blank=True)
-    yes = "Yes"
-    no = "No"
-    tracker_choices = [(yes, "Yes"), (no, "No")]
-    want = models.CharField(max_length=3, choices=tracker_choices, default=no,)
-    reading = models.CharField(max_length=3, choices=tracker_choices, default=no,)
-    done = models.CharField(max_length=3, choices=tracker_choices, default=no,)
+    want = "Want to Read"
+    reading = "Currently Reading"
+    done = "Read/Done"
+    tracker_choices = [(want, "Want to Read"), (reading, "Currently Reading"), (done, "Read/Done")]
 
     def __str__(self):
         return f'{self.user}:{self.book}'
