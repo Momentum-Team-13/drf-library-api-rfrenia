@@ -30,8 +30,8 @@ urlpatterns = [
     path("books/", library_views.BookListCreateView.as_view(), name="book_list"),
     path("books/<int:pk>/", library_views.BookDetailView.as_view(), name="book_detail"),
     path("books/<int:pk>/tracker/", library_views.BookTrackerView.as_view(), name="add_tracker"),
-    path("users/", library_views.UserList.as_view()),
-    path("users/<int:pk>/", library_views.UserDetail.as_view()),
+    path("users/", library_views.UserList.as_view(), name="user_list"),
+    path("users/<int:pk>/", library_views.UserDetail.as_view(), name="user_detail"),
 ]
 
 if settings.DEBUG:

@@ -27,4 +27,4 @@ class TrackerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tracker
-        fields = ["pk", "tracker_choices", ]
+        fields = ["pk", "tracker_status", "owner", ]
