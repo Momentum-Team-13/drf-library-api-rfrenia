@@ -23,4 +23,4 @@ class BookSerializer(serializers.ModelSerializer):
 class TrackerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tracker
-        fields = ["pk", "want", "reading", "done"]
+        fields = ["pk", "tracker_choices", ]

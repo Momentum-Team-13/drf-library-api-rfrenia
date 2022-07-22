@@ -38,6 +38,7 @@ class Tracker(models.Model):
     reading = "Currently Reading"
     done = "Read/Done"
     tracker_choices = [(want, "Want to Read"), (reading, "Currently Reading"), (done, "Read/Done")]
+    tracker_status = models.CharField(max_length=20, choices=tracker_choices, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user}:{self.book}'
