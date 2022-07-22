@@ -22,13 +22,10 @@ class Book(models.Model):
     featured_book = models.CharField(max_length=3, choices=featured_choices, default=featured_N,)
     owner = models.ForeignKey('User', related_name='books', on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f'{self.title}'
-
-    def check_is_user_tracker(self, user):
-        for tracker in self.trackers.all():
-            if tracker.book == self:
-                return True
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['title', 'author'], name='unique_book')
+        ]
 
 
 class Tracker(models.Model):
@@ -38,7 +35,9 @@ class Tracker(models.Model):
     reading = "Currently Reading"
     done = "Read/Done"
     tracker_choices = [(want, "Want to Read"), (reading, "Currently Reading"), (done, "Read/Done")]
-    tracker_status = models.CharField(max_length=20, choices=tracker_choices, null=True, blank=True)
+    tracker_status = models.CharField(max_length=20, choices=tracker_choices, default=want,)
 
-    def __str__(self):
-        return f'{self.user}:{self.book}'
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['book', 'user'], name='unique_tracker')
+        ]

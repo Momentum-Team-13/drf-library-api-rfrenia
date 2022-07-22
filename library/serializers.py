@@ -4,23 +4,27 @@ from django.contrib.auth.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    books = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Book.objects.all())
+    trackers = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Tracker.objects.all())
 
     class Meta:
         model = User
-        fields = ("pk", "username", "books")
+        fields = ("pk", "username", "trackers")
 
 
 class BookSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-
+    
     class Meta:
         model = Book
         fields = ["pk", "title", "author", "publication_date", "genre", "featured_book", "owner", ]
 
 
 class TrackerSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
+    def get_book_status(self, obj):
+        return obj.get_status_display()
+
     class Meta:
         model = Tracker
         fields = ["pk", "tracker_choices", ]
