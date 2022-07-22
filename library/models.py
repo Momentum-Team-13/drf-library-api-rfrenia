@@ -3,12 +3,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    username = models.CharField(max_length=100, unique=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     #is staff boolean
-    def __str__(self):
-        return self.username
 
-    def __repr__(self):
-        return f"<User username={self.username} pk={self.pk}>"
+    def __str__(self):
+        return f'{self.username} {self.email}'
 
 
 class Book(models.Model):
